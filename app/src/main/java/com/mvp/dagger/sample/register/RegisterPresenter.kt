@@ -4,8 +4,9 @@ import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.data.user.UserRepository
 import com.mvp.dagger.sample.webservice.RegisterRequest
 import com.mvp.dagger.sample.webservice.RegisterResponse
+import javax.inject.Inject
 
-class RegisterPresenter(private val view: IRegisterContract.IRegisterView): IRegisterContract.IRegisterPresenter, UserRepository.IRegisterListener {
+class RegisterPresenter @Inject constructor(private val view: IRegisterContract.IRegisterView): IRegisterContract.IRegisterPresenter, UserRepository.IRegisterListener {
 
     override fun isValidName(name: String): Boolean = name.isNotEmpty()
 

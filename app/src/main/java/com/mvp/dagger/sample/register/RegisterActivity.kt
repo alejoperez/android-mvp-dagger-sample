@@ -9,10 +9,12 @@ import com.mvp.dagger.sample.login.LoginActivity
 import com.mvp.dagger.sample.main.MainActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
+import javax.inject.Inject
 
 class RegisterActivity : BaseActivity(), IRegisterContract.IRegisterView {
 
-    private val presenter by lazy { RegisterPresenter(this) }
+    @Inject
+    lateinit var presenter: IRegisterContract.IRegisterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

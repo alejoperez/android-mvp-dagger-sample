@@ -1,11 +1,18 @@
 package com.mvp.dagger.sample.base
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import dagger.android.support.AndroidSupportInjection
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton
 
 abstract class BaseDialogFragment: DialogFragment(), IBaseView {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AndroidSupportInjection.inject(this)
+    }
 
     private lateinit var fragmentContext: Context
 

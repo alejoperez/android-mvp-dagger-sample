@@ -13,10 +13,12 @@ import com.mvp.dagger.sample.photos.PhotosFragment
 import com.mvp.dagger.sample.places.PlacesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
+import javax.inject.Inject
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, IMainContract.View {
 
-    private val presenter by lazy { MainPresenter(this) }
+    @Inject
+    lateinit var presenter: IMainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,8 +3,9 @@ package com.mvp.dagger.sample.places
 import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.data.Place
 import com.mvp.dagger.sample.data.places.PlacesRepository
+import javax.inject.Inject
 
-class PlacesPresenter(private val view: IPlacesContract.View): IPlacesContract.Presenter, PlacesRepository.IPlacesListener {
+class PlacesPresenter @Inject constructor(private val view: IPlacesContract.View): IPlacesContract.Presenter, PlacesRepository.IPlacesListener {
 
     override fun getPlaces() {
         PlacesRepository.getInstance().getPlaces(view.getViewContext(), this)

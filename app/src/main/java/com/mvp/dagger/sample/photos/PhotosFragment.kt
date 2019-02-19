@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.base.BaseFragment
 import com.mvp.dagger.sample.data.Photo
+import com.mvp.dagger.sample.photos.detail.PhotoDetailDialogFragment
 import com.mvp.dagger.sample.view.SimpleDividerItemDecorator
 import kotlinx.android.synthetic.main.fragment_photos.*
+import javax.inject.Inject
 
 class PhotosFragment : BaseFragment(), IPhotosContract.View, PhotoItemView.OnPhotoClickListener {
 
@@ -18,7 +20,8 @@ class PhotosFragment : BaseFragment(), IPhotosContract.View, PhotoItemView.OnPho
         fun newInstance() = PhotosFragment()
     }
 
-    private val presenter by lazy { PhotosPresenter(this) }
+    @Inject
+    lateinit var presenter: IPhotosContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_photos, container, false)

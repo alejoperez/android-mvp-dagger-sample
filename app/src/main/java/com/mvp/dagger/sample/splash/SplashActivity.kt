@@ -7,12 +7,14 @@ import com.mvp.dagger.sample.base.BaseActivity
 import com.mvp.dagger.sample.main.MainActivity
 import com.mvp.dagger.sample.register.RegisterActivity
 import org.jetbrains.anko.startActivity
+import javax.inject.Inject
 
 private const val SPLASH_DELAY = 2000L
 
 class SplashActivity : BaseActivity(), ISplashContract.View {
 
-    private val presenter by lazy { SplashPresenter(this) }
+    @Inject
+    lateinit var presenter: ISplashContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

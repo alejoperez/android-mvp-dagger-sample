@@ -8,10 +8,12 @@ import com.mvp.dagger.sample.extensions.getWhiteSpaceFilters
 import com.mvp.dagger.sample.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
+import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), ILoginContract.View {
 
-    private val presenter by lazy { LoginPresenter(this) }
+    @Inject
+    lateinit var presenter: ILoginContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

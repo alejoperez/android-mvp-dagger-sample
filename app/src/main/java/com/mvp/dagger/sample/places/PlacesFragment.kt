@@ -16,6 +16,7 @@ import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.base.BaseFragment
 import com.mvp.dagger.sample.data.Place
 import kotlinx.android.synthetic.main.fragment_places.*
+import javax.inject.Inject
 
 class PlacesFragment: BaseFragment(), OnMapReadyCallback, IPlacesContract.View {
 
@@ -25,7 +26,8 @@ class PlacesFragment: BaseFragment(), OnMapReadyCallback, IPlacesContract.View {
         fun newInstance() = PlacesFragment()
     }
 
-    private val presenter by lazy { PlacesPresenter(this) }
+    @Inject
+    lateinit var presenter: IPlacesContract.Presenter
 
     private lateinit var googleMap: GoogleMap
 

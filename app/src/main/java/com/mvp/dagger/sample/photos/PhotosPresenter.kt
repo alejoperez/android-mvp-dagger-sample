@@ -3,8 +3,9 @@ package com.mvp.dagger.sample.photos
 import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.data.Photo
 import com.mvp.dagger.sample.data.photos.PhotosRepository
+import javax.inject.Inject
 
-class PhotosPresenter(private val view: IPhotosContract.View): IPhotosContract.Presenter, PhotosRepository.IPhotosListener {
+class PhotosPresenter @Inject constructor(private val view: IPhotosContract.View): IPhotosContract.Presenter, PhotosRepository.IPhotosListener {
 
     override fun getPhotos() {
         view.showProgress()

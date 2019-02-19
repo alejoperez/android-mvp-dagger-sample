@@ -4,9 +4,10 @@ import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.data.user.UserRepository
 import com.mvp.dagger.sample.webservice.LoginRequest
 import com.mvp.dagger.sample.webservice.LoginResponse
+import javax.inject.Inject
 
 
-class LoginPresenter(private val view: ILoginContract.View): ILoginContract.Presenter, UserRepository.ILoginListener {
+class LoginPresenter @Inject constructor(private val view: ILoginContract.View): ILoginContract.Presenter, UserRepository.ILoginListener {
 
     override fun isValidEmail(email: String): Boolean = email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 

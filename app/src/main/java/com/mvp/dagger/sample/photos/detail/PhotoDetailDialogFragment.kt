@@ -1,4 +1,4 @@
-package com.mvp.dagger.sample.photos
+package com.mvp.dagger.sample.photos.detail
 
 import android.annotation.SuppressLint
 import com.mvp.dagger.sample.base.BaseDialogFragment
@@ -8,12 +8,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.bumptech.glide.Glide
 import com.mvp.dagger.sample.R
+import javax.inject.Inject
 
 class PhotoDetailDialogFragment : BaseDialogFragment() {
 
+    @Inject
+    lateinit var photoUrl: String
+
     companion object {
         const val TAG = "PhotoDetailDialogFragment"
-        private const val PHOTO_URL = "PhotoDetailDialogFragment.PHOTO_URL"
+        const val PHOTO_URL = "PhotoDetailDialogFragment.PHOTO_URL"
 
         fun newInstance(photoUrl: String?) = PhotoDetailDialogFragment().apply {
             arguments = Bundle().apply {
@@ -25,8 +29,6 @@ class PhotoDetailDialogFragment : BaseDialogFragment() {
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = LayoutInflater.from(getViewContext()).inflate(R.layout.dialog_photo_detail, null)
-
-        val photoUrl = arguments?.getString(PHOTO_URL, "")
 
         Glide.with(this).load(photoUrl).into(view.findViewById(R.id.ivPhotoDetail))
 

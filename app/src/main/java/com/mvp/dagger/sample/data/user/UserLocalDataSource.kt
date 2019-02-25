@@ -6,8 +6,9 @@ import com.mvp.dagger.sample.storage.PreferenceManager
 import com.mvp.dagger.sample.webservice.LoginRequest
 import com.mvp.dagger.sample.webservice.RegisterRequest
 import io.realm.Realm
+import javax.inject.Inject
 
-class UserLocalDataSource : IUserDataSource {
+class UserLocalDataSource @Inject constructor() : IUserDataSource {
 
     override fun isLoggedIn(context: Context): Boolean = PreferenceManager<String>(context).findPreference(PreferenceManager.ACCESS_TOKEN,"").isNotEmpty()
 

@@ -7,8 +7,9 @@ import com.mvp.dagger.sample.webservice.IApi
 import com.mvp.dagger.sample.webservice.LoginRequest
 import com.mvp.dagger.sample.webservice.RegisterRequest
 import com.mvp.dagger.sample.webservice.WebService
+import javax.inject.Inject
 
-class UserRemoteDataSource : IUserDataSource {
+class UserRemoteDataSource @Inject constructor(): IUserDataSource {
 
     override fun login(context: Context, request: LoginRequest, listener: UserRepository.ILoginListener) {
         val service = WebService.createService(context, IApi::class.java)

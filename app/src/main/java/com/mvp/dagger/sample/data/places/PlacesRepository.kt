@@ -3,22 +3,16 @@ package com.mvp.dagger.sample.data.places
 import android.content.Context
 import com.mvp.dagger.sample.data.IBaseSourceListener
 import com.mvp.dagger.sample.data.Place
+import javax.inject.Inject
+import javax.inject.Named
 
-class PlacesRepository private constructor(
-        private val localDataSource: IPlacesDataSource = PlacesLocalDataSource(),
-        private val remoteDataSource: IPlacesDataSource = PlacesRemoteDataSource()) : IPlacesDataSource {
+class PlacesRepository
+@Inject
+constructor(@Named(IBaseSourceListener.LOCAL) private val localDataSource: IPlacesDataSource,
+            @Named(IBaseSourceListener.REMOTE) private val remoteDataSource: IPlacesDataSource) : IPlacesDataSource {
 
 
     private var hasCache = false
-
-    companion object {
-        @Volatile
-        private var INSTANCE: PlacesRepository? = null
-
-        fun getInstance(): PlacesRepository = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: PlacesRepository().also { INSTANCE = it }
-        }
-    }
 
     override fun getPlaces(context: Context, listener: IPlacesListener) {
         if (hasCache) {

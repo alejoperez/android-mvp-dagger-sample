@@ -3,22 +3,15 @@ package com.mvp.dagger.sample.data.photos
 import android.content.Context
 import com.mvp.dagger.sample.data.IBaseSourceListener
 import com.mvp.dagger.sample.data.Photo
+import javax.inject.Inject
+import javax.inject.Named
 
-class PhotosRepository private constructor(
-        private val localDataSource: IPhotosDataSource = PhotosLocalDataSource(),
-        private val remoteDataSource: IPhotosDataSource = PhotosRemoteDataSource()) : IPhotosDataSource {
-
+class PhotosRepository
+@Inject
+constructor(@Named(IBaseSourceListener.LOCAL) private val localDataSource: IPhotosDataSource,
+            @Named(IBaseSourceListener.REMOTE) private val  remoteDataSource: IPhotosDataSource) : IPhotosDataSource {
 
     private var hasCache = false
-
-    companion object {
-        @Volatile
-        private var INSTANCE: PhotosRepository? = null
-
-        fun getInstance(): PhotosRepository = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: PhotosRepository().also { INSTANCE = it }
-        }
-    }
 
     override fun getPhotos(context: Context, listener: IPhotosListener) {
         if (hasCache) {

@@ -1,12 +1,14 @@
 package com.mvp.dagger.sample.register
 
 import com.mvp.dagger.sample.R
+import com.mvp.dagger.sample.data.user.IUserDataSource
 import com.mvp.dagger.sample.data.user.UserRepository
 import com.mvp.dagger.sample.webservice.RegisterRequest
 import com.mvp.dagger.sample.webservice.RegisterResponse
 import javax.inject.Inject
 
-class RegisterPresenter @Inject constructor(private val view: IRegisterContract.IRegisterView): IRegisterContract.IRegisterPresenter, UserRepository.IRegisterListener {
+class RegisterPresenter @Inject constructor(private val view: IRegisterContract.IRegisterView,
+                                            private val userRepository: IUserDataSource): IRegisterContract.IRegisterPresenter, UserRepository.IRegisterListener {
 
     override fun isValidName(name: String): Boolean = name.isNotEmpty()
 
@@ -18,7 +20,7 @@ class RegisterPresenter @Inject constructor(private val view: IRegisterContract.
 
     override fun register(name: String, email: String, password: String) {
         view.showProgress()
-        UserRepository.getInstance().register(view.getViewContext(), RegisterRequest(name, email, password),this)
+        userRepository.register(view.getViewContext(), RegisterRequest(name, email, password),this)
     }
 
     override fun onRegisterSuccess(response: RegisterResponse?) {

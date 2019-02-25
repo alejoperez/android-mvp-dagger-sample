@@ -8,19 +8,12 @@ import com.mvp.dagger.sample.webservice.LoginRequest
 import com.mvp.dagger.sample.webservice.LoginResponse
 import com.mvp.dagger.sample.webservice.RegisterRequest
 import com.mvp.dagger.sample.webservice.RegisterResponse
+import javax.inject.Inject
+import javax.inject.Named
 
-class UserRepository private constructor(
-        private val localDataSource: IUserDataSource = UserLocalDataSource(),
-        private val remoteDataSource: IUserDataSource = UserRemoteDataSource()) : IUserDataSource {
-
-    companion object {
-        @Volatile
-        private var INSTANCE: UserRepository? = null
-
-        fun getInstance(): UserRepository = INSTANCE ?: synchronized(this) {
-                    INSTANCE ?: UserRepository().also { INSTANCE = it }
-        }
-    }
+class UserRepository
+@Inject constructor(@Named(IBaseSourceListener.LOCAL) private val localDataSource: IUserDataSource,
+                    @Named(IBaseSourceListener.REMOTE) private val remoteDataSource: IUserDataSource) : IUserDataSource {
 
     override fun saveUser(user: User) = localDataSource.saveUser(user)
 

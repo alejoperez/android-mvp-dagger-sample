@@ -2,14 +2,16 @@ package com.mvp.dagger.sample.photos
 
 import com.mvp.dagger.sample.R
 import com.mvp.dagger.sample.data.Photo
+import com.mvp.dagger.sample.data.photos.IPhotosDataSource
 import com.mvp.dagger.sample.data.photos.PhotosRepository
 import javax.inject.Inject
 
-class PhotosPresenter @Inject constructor(private val view: IPhotosContract.View): IPhotosContract.Presenter, PhotosRepository.IPhotosListener {
+class PhotosPresenter @Inject constructor(private val view: IPhotosContract.View,
+                                          private val photosRepository: IPhotosDataSource): IPhotosContract.Presenter, PhotosRepository.IPhotosListener {
 
     override fun getPhotos() {
         view.showProgress()
-        PhotosRepository.getInstance().getPhotos(view.getViewContext(), this)
+        photosRepository.getPhotos(view.getViewContext(), this)
     }
 
     override fun onPhotosSuccess(photos: List<Photo>?) {

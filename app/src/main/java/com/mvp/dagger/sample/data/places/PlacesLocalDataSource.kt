@@ -3,8 +3,9 @@ package com.mvp.dagger.sample.data.places
 import android.content.Context
 import com.mvp.dagger.sample.data.Place
 import io.realm.Realm
+import javax.inject.Inject
 
-class PlacesLocalDataSource: IPlacesDataSource {
+class PlacesLocalDataSource @Inject constructor(): IPlacesDataSource {
 
     override fun savePlaces(places: List<Place>) {
         Realm.getDefaultInstance().executeTransactionAsync {

@@ -1,13 +1,15 @@
 package com.mvp.dagger.sample.login
 
 import com.mvp.dagger.sample.R
+import com.mvp.dagger.sample.data.user.IUserDataSource
 import com.mvp.dagger.sample.data.user.UserRepository
 import com.mvp.dagger.sample.webservice.LoginRequest
 import com.mvp.dagger.sample.webservice.LoginResponse
 import javax.inject.Inject
 
 
-class LoginPresenter @Inject constructor(private val view: ILoginContract.View): ILoginContract.Presenter, UserRepository.ILoginListener {
+class LoginPresenter @Inject constructor(private val view: ILoginContract.View,
+                                         private val userRepository: IUserDataSource): ILoginContract.Presenter, UserRepository.ILoginListener {
 
     override fun isValidEmail(email: String): Boolean = email.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
@@ -17,7 +19,7 @@ class LoginPresenter @Inject constructor(private val view: ILoginContract.View):
 
     override fun login(email: String, password: String) {
         view.showProgress()
-        UserRepository.getInstance().login(view.getViewContext(), LoginRequest(email, password),this)
+        userRepository.login(view.getViewContext(), LoginRequest(email, password),this)
     }
 
     override fun onLoginSuccess(response: LoginResponse?) {

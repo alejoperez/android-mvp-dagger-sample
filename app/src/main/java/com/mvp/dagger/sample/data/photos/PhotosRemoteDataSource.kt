@@ -6,8 +6,9 @@ import com.mvp.dagger.sample.extensions.enqueue
 import com.mvp.dagger.sample.webservice.IApi
 import com.mvp.dagger.sample.webservice.WebService
 import java.lang.UnsupportedOperationException
+import javax.inject.Inject
 
-class PhotosRemoteDataSource : IPhotosDataSource {
+class PhotosRemoteDataSource @Inject constructor() : IPhotosDataSource {
 
     override fun savePhotos(photos: List<Photo>) = throw UnsupportedOperationException()
 

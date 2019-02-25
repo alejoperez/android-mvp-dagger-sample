@@ -6,8 +6,9 @@ import com.mvp.dagger.sample.webservice.IApi
 import com.mvp.dagger.sample.extensions.enqueue
 import com.mvp.dagger.sample.webservice.WebService
 import java.lang.UnsupportedOperationException
+import javax.inject.Inject
 
-class PlacesRemoteDataSource : IPlacesDataSource {
+class PlacesRemoteDataSource @Inject constructor() : IPlacesDataSource {
 
     override fun savePlaces(places: List<Place>) = throw UnsupportedOperationException()
 
